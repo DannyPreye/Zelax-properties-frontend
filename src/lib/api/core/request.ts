@@ -12,8 +12,6 @@ import type { ApiResult } from './ApiResult';
 import { CancelablePromise } from './CancelablePromise';
 import type { OnCancel } from './CancelablePromise';
 import type { OpenAPIConfig } from './OpenAPI';
-import { serverSession } from '@/lib/auth/config';
-import { getSession } from 'next-auth/react';
 
 export const isDefined = <T>(value: T | null | undefined): value is Exclude<T, null | undefined> =>
 {
@@ -324,29 +322,10 @@ export const request = <T>(config: OpenAPIConfig, options: ApiRequestOptions, ax
     return new CancelablePromise(async (resolve, reject, onCancel) =>
     {
         try {
-
-            // Check if we're on the server or client
-            const isServer = typeof window === 'undefined';
-            let token: string | null = null;
-            if (isServer) {
-                const session = await serverSession();
-                token = session?.accessToken ?? null;
-            } else {
-                const session = await getSession();
-                token = session?.accessToken ?? null;
-            }
-
-            if (!token) {
-                throw new Error('No token found');
-            }
-
             const url = getUrl(config, options);
             const formData = getFormData(options);
             const body = getRequestBody(options);
             const headers = await getHeaders(config, options, formData);
-            if (token) {
-                headers[ 'Authorization' ] = `Bearer ${token}`;
-            }
 
             if (!onCancel.isCancelled) {
                 const response = await sendRequest<T>(config, options, url, body, formData, headers, onCancel, axiosClient);
@@ -366,6 +345,7 @@ export const request = <T>(config: OpenAPIConfig, options: ApiRequestOptions, ax
                 resolve(result.body);
             }
         } catch (error) {
+            
             reject(error);
         }
     });

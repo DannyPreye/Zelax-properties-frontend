@@ -12,7 +12,7 @@ import {
     type HostOnboardingStep2Data,
     type HostOnboardingStep3Data,
 } from "@/lib/validations/auth";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { AuthService } from "@/lib/api/services/AuthService";
 import { useSession } from "next-auth/react";
 import { FormWrapper } from "@/components/onboarding/form-wrapper";
@@ -45,7 +45,12 @@ export default function HostOnboardingPage() {
     const [currentStep, setCurrentStep] = useState(1);
     const [error, setError] = useState<string | null>(null);
 
-    console.log(session);
+    const { data: profile, refetch } = useQuery({
+        queryKey: ["profile"],
+        queryFn: () => AuthService.authProfileRetrieve(),
+    });
+
+    console.log(profile);
 
     const step1Form = useForm<HostOnboardingStep1Data>({
         resolver: zodResolver(hostOnboardingStep1Schema),

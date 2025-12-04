@@ -25,10 +25,14 @@ export const authOptions: NextAuthOptions = {
         }
 
         try {
+
+          console.log(credentials);
           const tokenResponse = await AuthService.authLoginCreate({
             username: credentials.username,
             password: credentials.password,
           } as TokenObtainPairRequest);
+
+          console.log(tokenResponse);
 
           // Set token temporarily to fetch profile
           const { OpenAPI } = await import('@/lib/api/core/OpenAPI');
@@ -75,7 +79,7 @@ export const authOptions: NextAuthOptions = {
     {
       // Initial sign in
       if (user) {
-        token.id = user.id;
+        token.id = typeof user.id === 'number' ? user.id : Number(user.id);
         token.username = user.username;
         token.email = user.email;
         token.firstName = user.firstName;
@@ -83,11 +87,11 @@ export const authOptions: NextAuthOptions = {
         token.fullName = user.fullName;
         token.role = user.role;
         token.phone = user.phone;
-        token.emailVerified = user.emailVerified;
-        token.identityVerified = user.identityVerified;
+        token.emailVerified = typeof user.emailVerified === 'boolean' ? user.emailVerified : Boolean(user.emailVerified);
+        token.identityVerified = typeof user.identityVerified === 'boolean' ? user.identityVerified : Boolean(user.identityVerified);
         token.profilePhoto = user.profilePhoto;
-        token.accessToken = user.accessToken;
-        token.refreshToken = user.refreshToken;
+        token.accessToken = (user as any).accessToken;
+        token.refreshToken = (user as any).refreshToken;
         // Set expiration to 15 minutes from now (typical JWT access token lifetime)
         token.accessTokenExpires = Date.now() + 15 * 60 * 1000;
       }
@@ -148,7 +152,6 @@ async function refreshAccessToken(token: any)
 {
   try {
     const { AuthService } = await import('@/lib/api/services/AuthService');
-    const { TokenRefreshRequest } = await import('@/lib/api/models/TokenRefreshRequest');
     const { OpenAPI } = await import('@/lib/api/core/OpenAPI');
 
     // Temporarily set the token for the refresh request

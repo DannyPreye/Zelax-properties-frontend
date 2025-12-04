@@ -69,3 +69,5 @@ export function getBoundsFromProperties(properties: Array<{ latitude?: string; l
 
 
 
+
+
