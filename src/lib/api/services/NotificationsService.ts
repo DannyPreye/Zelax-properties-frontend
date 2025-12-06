@@ -37,12 +37,12 @@ export class NotificationsService {
     }
     /**
      * ViewSet for notification operations
-     * @param id
+     * @param id A unique integer value identifying this notification.
      * @returns Notification
      * @throws ApiError
      */
     public static notificationsRetrieve(
-        id: string,
+        id: number,
     ): CancelablePromise<Notification> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -54,13 +54,13 @@ export class NotificationsService {
     }
     /**
      * Mark notification as read
-     * @param id
+     * @param id A unique integer value identifying this notification.
      * @param requestBody
      * @returns Notification
      * @throws ApiError
      */
     public static notificationsReadCreate(
-        id: string,
+        id: number,
         requestBody: NotificationRequest,
     ): CancelablePromise<Notification> {
         return __request(OpenAPI, {

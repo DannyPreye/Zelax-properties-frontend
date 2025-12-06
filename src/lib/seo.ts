@@ -46,7 +46,7 @@ export function generateMetadata(config: SEOConfig): Metadata
         publisher: 'Zelax Properties',
         robots: robots.join(', '),
         openGraph: {
-            type: ogType,
+            type: ogType === 'product' ? 'website' : ogType,
             locale: 'en_US',
             url: fullCanonicalUrl,
             siteName: 'Zelax Properties',
@@ -149,6 +149,9 @@ export function generateStructuredData(type: 'Organization' | 'Article' | 'Produ
             return baseStructuredData;
     }
 }
+
+
+
 
 
 

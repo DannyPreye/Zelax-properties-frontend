@@ -2,10 +2,11 @@ import { withAuth } from 'next-auth/middleware';
 import { NextResponse } from 'next/server';
 
 export default withAuth(
-    async function middleware(req)
+    async function proxy(req)
     {
         const token = req.nextauth.token;
         const path = req.nextUrl.pathname;
+
 
         // Always allow API auth routes - NextAuth handles these
         if (path.startsWith('/api/auth')) {
@@ -41,21 +42,23 @@ export default withAuth(
         // Redirect authenticated users from auth pages
         if ((path.startsWith('/login') || path.startsWith('/register')) && token) {
             if (token.role === 'host') {
-                return NextResponse.redirect(new URL('/host/dashboard', req.url));
+                return NextResponse.redirect(new URL('/host', req.url));
             }
             if (token.role === 'guest') {
-                return NextResponse.redirect(new URL('/guest/dashboard', req.url));
+                return NextResponse.redirect(new URL('/guest', req.url));
             }
             return NextResponse.redirect(new URL('/', req.url));
         }
 
+
         // Protect host routes
         if (path.startsWith('/host')) {
+
             if (!token) {
                 return NextResponse.redirect(new URL('/login', req.url));
             }
             if (token.role !== 'host') {
-                return NextResponse.redirect(new URL('/guest/dashboard', req.url));
+                return NextResponse.redirect(new URL('/guest', req.url));
             }
         }
 
@@ -65,7 +68,7 @@ export default withAuth(
                 return NextResponse.redirect(new URL('/login', req.url));
             }
             if (token.role !== 'guest') {
-                return NextResponse.redirect(new URL('/host/dashboard', req.url));
+                return NextResponse.redirect(new URL('/host', req.url));
             }
         }
 
@@ -75,10 +78,10 @@ export default withAuth(
                 return NextResponse.redirect(new URL('/login', req.url));
             }
             if (path.startsWith('/onboarding/host') && token.role !== 'host') {
-                return NextResponse.redirect(new URL('/guest/dashboard', req.url));
+                return NextResponse.redirect(new URL('/guest', req.url));
             }
             if (path.startsWith('/onboarding/guest') && token.role !== 'guest') {
-                return NextResponse.redirect(new URL('/host/dashboard', req.url));
+                return NextResponse.redirect(new URL('/host', req.url));
             }
         }
 
@@ -137,5 +140,8 @@ export const config = {
          * - public folder assets
          */
         '/((?!_next/static|_next/image|_next/webpack-hmr|api/auth|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|woff|woff2|ttf|eot)$).*)',
+        "/guest/:path*",
+        "/host/:path*",
+
     ],
 };

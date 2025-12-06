@@ -1,15 +1,5 @@
-import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
-
-// Fix for default marker icons in Next.js
-if (typeof window !== 'undefined') {
-    delete (L.Icon.Default.prototype as any)._getIconUrl;
-    L.Icon.Default.mergeOptions({
-        iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon-2x.png',
-        iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon.png',
-        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
-    });
-}
+// Leaflet is imported dynamically in components to avoid SSR issues
+// This file only exports constants and helper functions that don't require Leaflet
 
 export const defaultMapCenter: [ number, number ] = [ 20, 0 ]; // World center
 export const defaultZoom = 2;
@@ -17,8 +7,8 @@ export const defaultZoom = 2;
 export const mapTileLayer = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 export const mapAttribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
-// Custom marker icon
-export function createPropertyMarkerIcon(color: string = '#FF5A5F')
+// Custom marker icon - must be called from client-side only
+export function createPropertyMarkerIcon(L: typeof import('leaflet'), color: string = '#FF5A5F')
 {
     return L.divIcon({
         className: 'custom-marker',
@@ -47,8 +37,8 @@ export function createPropertyMarkerIcon(color: string = '#FF5A5F')
     });
 }
 
-// Map bounds helper
-export function getBoundsFromProperties(properties: Array<{ latitude?: string; longitude?: string; }>)
+// Map bounds helper - must be called from client-side only
+export function getBoundsFromProperties(L: typeof import('leaflet'), properties: Array<{ latitude?: string; longitude?: string; }>)
 {
     if (properties.length === 0) return null;
 
@@ -66,6 +56,9 @@ export function getBoundsFromProperties(properties: Array<{ latitude?: string; l
         [ Math.max(...lats), Math.max(...lngs) ]
     );
 }
+
+
+
 
 
 

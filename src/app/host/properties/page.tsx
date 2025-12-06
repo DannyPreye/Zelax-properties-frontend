@@ -252,8 +252,10 @@ export default function PropertiesPage() {
                             <div className='relative h-48 w-full overflow-hidden'>
                                 <Image
                                     src={
-                                        property.primary_photo ||
-                                        "/placeholder-property.jpg"
+                                        property.primary_photo
+                                            ? // @ts-ignore
+                                              `${process.env.NEXT_PUBLIC_API_BASE_URL}${property.primary_photo?.image}`
+                                            : "/placeholder-property.jpg"
                                     }
                                     alt={property.title}
                                     fill

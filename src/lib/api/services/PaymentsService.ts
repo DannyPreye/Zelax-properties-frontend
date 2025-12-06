@@ -37,12 +37,12 @@ export class PaymentsService {
     }
     /**
      * ViewSet for payment operations
-     * @param id
+     * @param id A unique integer value identifying this payment.
      * @returns Payment
      * @throws ApiError
      */
     public static paymentsRetrieve(
-        id: string,
+        id: number,
     ): CancelablePromise<Payment> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -93,12 +93,12 @@ export class PaymentsService {
     }
     /**
      * ViewSet for payout operations
-     * @param id
+     * @param id A unique integer value identifying this payout.
      * @returns Payout
      * @throws ApiError
      */
     public static paymentsPayoutsRetrieve(
-        id: string,
+        id: number,
     ): CancelablePromise<Payout> {
         return __request(OpenAPI, {
             method: 'GET',

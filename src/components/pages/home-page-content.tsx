@@ -118,32 +118,32 @@ const stats = [
 const popularDestinations = [
     {
         name: "Paris, France",
-        image: "/api/placeholder/400/300",
+        image: "/images/paris.png",
         properties: "1,234",
     },
     {
         name: "Tokyo, Japan",
-        image: "/api/placeholder/400/300",
+        image: "/images/tokyo.png",
         properties: "987",
     },
     {
         name: "New York, USA",
-        image: "/api/placeholder/400/300",
+        image: "/images/new-york.png",
         properties: "2,156",
     },
     {
         name: "Barcelona, Spain",
-        image: "/api/placeholder/400/300",
+        image: "/images/barcelona.png",
         properties: "756",
     },
     {
         name: "Dubai, UAE",
-        image: "/api/placeholder/400/300",
+        image: "/images/Dubai.png",
         properties: "432",
     },
     {
         name: "London, UK",
-        image: "/api/placeholder/400/300",
+        image: "/images/london.png",
         properties: "1,543",
     },
 ];
@@ -268,9 +268,17 @@ export function HomePageContent() {
     return (
         <div className='overflow-hidden'>
             {/* Hero Section */}
-            <section className='relative min-h-[90vh] flex items-center justify-center bg-primary/10'>
-                <div className='absolute inset-0 bg-grid-pattern opacity-5' />
-                <div className='container mx-auto px-4 sm:px-6 lg:px-8 relative z-10'>
+            <section
+                style={{
+                    backgroundImage: "url(/images/zelax.png)",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                }}
+                className='relative min-h-[90vh] flex items-center justify-center bg-primary/10'
+            >
+                {/* Dark overlay for better contrast */}
+                <div className='absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/60 z-10' />
+                <div className='container mx-auto px-4 sm:px-6 lg:px-8 relative z-20'>
                     <motion.div
                         variants={staggerContainer}
                         initial='hidden'
@@ -279,17 +287,17 @@ export function HomePageContent() {
                     >
                         <motion.h1
                             variants={staggerItem}
-                            className='text-5xl md:text-7xl font-bold mb-6 text-primary'
+                            className='text-5xl md:text-7xl font-bold mb-6 text-white drop-shadow-2xl'
                         >
                             Find Your Perfect
                             <br />
-                            <span className='text-foreground'>
+                            <span className='text-primary-foreground drop-shadow-lg'>
                                 Property Rental
                             </span>
                         </motion.h1>
                         <motion.p
                             variants={staggerItem}
-                            className='text-xl md:text-2xl text-muted-foreground mb-8'
+                            className='text-xl md:text-2xl text-white/90 mb-8 drop-shadow-lg'
                         >
                             Discover amazing properties worldwide. Book your
                             perfect stay with confidence and ease.
@@ -322,9 +330,9 @@ export function HomePageContent() {
                         repeat: Infinity,
                         ease: "easeInOut",
                     }}
-                    className='absolute bottom-10 left-1/2 transform -translate-x-1/2'
+                    className='absolute bottom-10 left-1/2 transform -translate-x-1/2 z-20'
                 >
-                    <div className='w-6 h-10 border-2 border-foreground/20 rounded-full flex justify-center'>
+                    <div className='w-6 h-10 border-2 border-white/40 rounded-full flex justify-center'>
                         <motion.div
                             animate={{
                                 y: [0, 12, 0],
@@ -334,7 +342,7 @@ export function HomePageContent() {
                                 repeat: Infinity,
                                 ease: "easeInOut",
                             }}
-                            className='w-1.5 h-3 bg-foreground/40 rounded-full mt-2'
+                            className='w-1.5 h-3 bg-white/60 rounded-full mt-2'
                         />
                     </div>
                 </motion.div>

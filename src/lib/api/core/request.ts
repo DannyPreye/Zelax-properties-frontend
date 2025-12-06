@@ -12,6 +12,8 @@ import type { ApiResult } from './ApiResult';
 import { CancelablePromise } from './CancelablePromise';
 import type { OnCancel } from './CancelablePromise';
 import type { OpenAPIConfig } from './OpenAPI';
+import { serverSession } from '@/lib/auth/config';
+import { getSession } from 'next-auth/react';
 
 export const isDefined = <T>(value: T | null | undefined): value is Exclude<T, null | undefined> =>
 {
@@ -186,7 +188,30 @@ export const getHeaders = async (config: OpenAPIConfig, options: ApiRequestOptio
             [ key ]: String(value),
         }), {} as Record<string, string>);
 
-    if (isStringWithValue(token)) {
+    // Get session token if not already provided and not an auth endpoint
+    if (!isStringWithValue(token)) {
+        const url = options.url || '';
+
+        // Skip token retrieval for auth endpoints
+        if (!url.includes('auth') && !url.includes('login')) {
+            console.log("inside if");
+            const isServer = typeof window === 'undefined';
+            let sessionToken: string | null = null;
+
+            if (isServer) {
+                const session = await serverSession();
+                sessionToken = session?.accessToken ?? null;
+            } else {
+                const session = await getSession();
+                sessionToken = session?.accessToken ?? null;
+            }
+
+            if (isStringWithValue(sessionToken)) {
+                headers[ 'Authorization' ] = `Bearer ${sessionToken}`;
+            }
+        }
+    } else {
+        // Use provided token
         headers[ 'Authorization' ] = `Bearer ${token}`;
     }
 
@@ -322,6 +347,9 @@ export const request = <T>(config: OpenAPIConfig, options: ApiRequestOptions, ax
     return new CancelablePromise(async (resolve, reject, onCancel) =>
     {
         try {
+
+
+
             const url = getUrl(config, options);
             const formData = getFormData(options);
             const body = getRequestBody(options);
@@ -345,7 +373,6 @@ export const request = <T>(config: OpenAPIConfig, options: ApiRequestOptions, ax
                 resolve(result.body);
             }
         } catch (error) {
-            
             reject(error);
         }
     });

@@ -53,12 +53,12 @@ export class WishlistsService {
     }
     /**
      * ViewSet for wishlist operations
-     * @param id
+     * @param id A unique integer value identifying this wishlist.
      * @returns Wishlist
      * @throws ApiError
      */
     public static wishlistsRetrieve(
-        id: string,
+        id: number,
     ): CancelablePromise<Wishlist> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -70,13 +70,13 @@ export class WishlistsService {
     }
     /**
      * ViewSet for wishlist operations
-     * @param id
+     * @param id A unique integer value identifying this wishlist.
      * @param requestBody
      * @returns Wishlist
      * @throws ApiError
      */
     public static wishlistsUpdate(
-        id: string,
+        id: number,
         requestBody: WishlistRequest,
     ): CancelablePromise<Wishlist> {
         return __request(OpenAPI, {
@@ -91,13 +91,13 @@ export class WishlistsService {
     }
     /**
      * ViewSet for wishlist operations
-     * @param id
+     * @param id A unique integer value identifying this wishlist.
      * @param requestBody
      * @returns Wishlist
      * @throws ApiError
      */
     public static wishlistsPartialUpdate(
-        id: string,
+        id: number,
         requestBody?: PatchedWishlistRequest,
     ): CancelablePromise<Wishlist> {
         return __request(OpenAPI, {
@@ -112,12 +112,12 @@ export class WishlistsService {
     }
     /**
      * ViewSet for wishlist operations
-     * @param id
+     * @param id A unique integer value identifying this wishlist.
      * @returns void
      * @throws ApiError
      */
     public static wishlistsDestroy(
-        id: string,
+        id: number,
     ): CancelablePromise<void> {
         return __request(OpenAPI, {
             method: 'DELETE',
@@ -129,14 +129,14 @@ export class WishlistsService {
     }
     /**
      * Add or remove property from wishlist
-     * @param id
+     * @param id A unique integer value identifying this wishlist.
      * @param propertyId
      * @param requestBody
      * @returns Wishlist
      * @throws ApiError
      */
     public static wishlistsPropertiesCreate(
-        id: string,
+        id: number,
         propertyId: string,
         requestBody: WishlistRequest,
     ): CancelablePromise<Wishlist> {
@@ -153,13 +153,13 @@ export class WishlistsService {
     }
     /**
      * Add or remove property from wishlist
-     * @param id
+     * @param id A unique integer value identifying this wishlist.
      * @param propertyId
      * @returns void
      * @throws ApiError
      */
     public static wishlistsPropertiesDestroy(
-        id: string,
+        id: number,
         propertyId: string,
     ): CancelablePromise<void> {
         return __request(OpenAPI, {

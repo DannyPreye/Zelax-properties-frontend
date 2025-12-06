@@ -26,9 +26,11 @@ export const registerSchema = z
     password2: z.string().min(1, 'Please confirm your password'),
     first_name: z.string().optional(),
     last_name: z.string().optional(),
-    role: z.nativeEnum(RoleEnum, {
-      required_error: 'Please select a role',
-    }),
+    role: z
+      .union([ z.nativeEnum(RoleEnum), z.undefined() ])
+      .refine((val) => val !== undefined, {
+        message: 'Please select a role',
+      }),
     phone: z
       .string()
       .regex(/^\+?[1-9]\d{1,14}$/, 'Invalid phone number format')
@@ -37,7 +39,7 @@ export const registerSchema = z
   })
   .refine((data) => data.password === data.password2, {
     message: "Passwords don't match",
-    path: ['password2'],
+    path: [ 'password2' ],
   });
 
 export type RegisterFormData = z.infer<typeof registerSchema>;

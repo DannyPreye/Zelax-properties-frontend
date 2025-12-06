@@ -105,47 +105,65 @@ export function LocationPicker({
     const [isDragging, setIsDragging] = useState(false);
     const [isUpdatingFromExternal, setIsUpdatingFromExternal] = useState(false);
     const markerRef = useRef<L.Marker>(null);
+    const prevLatRef = useRef<string>("");
+    const prevLngRef = useRef<string>("");
+    const prevCenterRef = useRef<LatLngExpression | undefined>(undefined);
+    const isInitializedRef = useRef<boolean>(false);
 
     // Update position when props change (e.g., manual lat/lng input or center prop)
     useEffect(() => {
-        // If center prop is provided and different from current position, update
-        if (center && !isDragging) {
+        // Skip if currently dragging to avoid conflicts
+        if (isDragging) {
+            return;
+        }
+
+        // If center prop is provided and different from previous center, update
+        if (center) {
             const centerArray = Array.isArray(center)
                 ? center
                 : [center.lat, center.lng];
-            const currentPos = position
-                ? Array.isArray(position)
-                    ? position
-                    : [position.lat, position.lng]
+            const prevCenter = prevCenterRef.current
+                ? Array.isArray(prevCenterRef.current)
+                    ? prevCenterRef.current
+                    : [prevCenterRef.current.lat, prevCenterRef.current.lng]
                 : null;
 
             if (
-                !currentPos ||
-                Math.abs(centerArray[0] - currentPos[0]) > 0.0001 ||
-                Math.abs(centerArray[1] - currentPos[1]) > 0.0001
+                !prevCenter ||
+                Math.abs(centerArray[0] - prevCenter[0]) > 0.0001 ||
+                Math.abs(centerArray[1] - prevCenter[1]) > 0.0001
             ) {
                 setIsUpdatingFromExternal(true);
                 setPosition(center as LatLngExpression);
+                prevCenterRef.current = center;
                 setTimeout(() => setIsUpdatingFromExternal(false), 100);
-            }
-        } else {
-            const lat = parseFloat(latitude);
-            const lng = parseFloat(longitude);
-
-            if (!isNaN(lat) && !isNaN(lng) && lat !== 0 && lng !== 0) {
-                // Only update if not currently dragging to avoid conflicts
-                if (!isDragging) {
-                    setIsUpdatingFromExternal(true);
-                    setPosition([lat, lng]);
-                    // Reset flag after a short delay
-                    setTimeout(() => setIsUpdatingFromExternal(false), 100);
-                }
-            } else if (!position) {
-                // Default to world center if no coordinates provided and no position set
-                setPosition([20, 0]);
+                return;
             }
         }
-    }, [latitude, longitude, center, isDragging, position]);
+
+        // Check if lat/lng props changed
+        const lat = parseFloat(latitude);
+        const lng = parseFloat(longitude);
+
+        if (!isNaN(lat) && !isNaN(lng) && lat !== 0 && lng !== 0) {
+            // Only update if lat/lng actually changed
+            if (
+                prevLatRef.current !== latitude ||
+                prevLngRef.current !== longitude
+            ) {
+                setIsUpdatingFromExternal(true);
+                setPosition([lat, lng]);
+                prevLatRef.current = latitude;
+                prevLngRef.current = longitude;
+                // Reset flag after a short delay
+                setTimeout(() => setIsUpdatingFromExternal(false), 100);
+            }
+        } else if (!isInitializedRef.current) {
+            // Default to world center if no coordinates provided and not initialized
+            setPosition([20, 0]);
+            isInitializedRef.current = true;
+        }
+    }, [latitude, longitude, center, isDragging]);
 
     // Handle map click
     const handleMapClick = (lat: number, lng: number) => {

@@ -8,6 +8,7 @@ import type { PropertyTypeEnum } from './PropertyTypeEnum';
  * Serializer for creating/updating properties
  */
 export type PropertyCreateUpdate = {
+    readonly id: number;
     title: string;
     description: string;
     property_type?: PropertyTypeEnum;

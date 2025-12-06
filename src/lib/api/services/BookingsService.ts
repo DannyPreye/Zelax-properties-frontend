@@ -55,12 +55,12 @@ export class BookingsService {
     }
     /**
      * ViewSet for booking operations
-     * @param id
+     * @param id A unique integer value identifying this booking.
      * @returns Booking
      * @throws ApiError
      */
     public static bookingsRetrieve(
-        id: string,
+        id: number,
     ): CancelablePromise<Booking> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -72,13 +72,13 @@ export class BookingsService {
     }
     /**
      * ViewSet for booking operations
-     * @param id
+     * @param id A unique integer value identifying this booking.
      * @param requestBody
      * @returns Booking
      * @throws ApiError
      */
     public static bookingsUpdate(
-        id: string,
+        id: number,
         requestBody: BookingRequest,
     ): CancelablePromise<Booking> {
         return __request(OpenAPI, {
@@ -93,13 +93,13 @@ export class BookingsService {
     }
     /**
      * ViewSet for booking operations
-     * @param id
+     * @param id A unique integer value identifying this booking.
      * @param requestBody
      * @returns Booking
      * @throws ApiError
      */
     public static bookingsPartialUpdate(
-        id: string,
+        id: number,
         requestBody?: PatchedBookingRequest,
     ): CancelablePromise<Booking> {
         return __request(OpenAPI, {
@@ -114,12 +114,12 @@ export class BookingsService {
     }
     /**
      * ViewSet for booking operations
-     * @param id
+     * @param id A unique integer value identifying this booking.
      * @returns void
      * @throws ApiError
      */
     public static bookingsDestroy(
-        id: string,
+        id: number,
     ): CancelablePromise<void> {
         return __request(OpenAPI, {
             method: 'DELETE',
@@ -131,12 +131,12 @@ export class BookingsService {
     }
     /**
      * Calculate booking price
-     * @param id
+     * @param id A unique integer value identifying this booking.
      * @returns Booking
      * @throws ApiError
      */
     public static bookingsCalculatePriceRetrieve(
-        id: string,
+        id: number,
     ): CancelablePromise<Booking> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -148,13 +148,13 @@ export class BookingsService {
     }
     /**
      * Cancel a booking
-     * @param id
+     * @param id A unique integer value identifying this booking.
      * @param requestBody
      * @returns Booking
      * @throws ApiError
      */
     public static bookingsCancelCreate(
-        id: string,
+        id: number,
         requestBody: BookingRequest,
     ): CancelablePromise<Booking> {
         return __request(OpenAPI, {
@@ -169,13 +169,13 @@ export class BookingsService {
     }
     /**
      * Host confirms a booking
-     * @param id
+     * @param id A unique integer value identifying this booking.
      * @param requestBody
      * @returns Booking
      * @throws ApiError
      */
     public static bookingsConfirmCreate(
-        id: string,
+        id: number,
         requestBody: BookingRequest,
     ): CancelablePromise<Booking> {
         return __request(OpenAPI, {

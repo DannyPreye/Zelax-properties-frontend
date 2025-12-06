@@ -332,7 +332,8 @@ paths:
       - in: path
         name: id
         schema:
-          type: string
+          type: integer
+        description: A unique integer value identifying this booking.
         required: true
       tags:
       - bookings
@@ -352,7 +353,8 @@ paths:
       - in: path
         name: id
         schema:
-          type: string
+          type: integer
+        description: A unique integer value identifying this booking.
         required: true
       tags:
       - bookings
@@ -384,7 +386,8 @@ paths:
       - in: path
         name: id
         schema:
-          type: string
+          type: integer
+        description: A unique integer value identifying this booking.
         required: true
       tags:
       - bookings
@@ -415,7 +418,8 @@ paths:
       - in: path
         name: id
         schema:
-          type: string
+          type: integer
+        description: A unique integer value identifying this booking.
         required: true
       tags:
       - bookings
@@ -432,7 +436,8 @@ paths:
       - in: path
         name: id
         schema:
-          type: string
+          type: integer
+        description: A unique integer value identifying this booking.
         required: true
       tags:
       - bookings
@@ -453,7 +458,8 @@ paths:
       - in: path
         name: id
         schema:
-          type: string
+          type: integer
+        description: A unique integer value identifying this booking.
         required: true
       tags:
       - bookings
@@ -486,7 +492,8 @@ paths:
       - in: path
         name: id
         schema:
-          type: string
+          type: integer
+        description: A unique integer value identifying this booking.
         required: true
       tags:
       - bookings
@@ -606,7 +613,8 @@ paths:
       - in: path
         name: id
         schema:
-          type: string
+          type: integer
+        description: A unique integer value identifying this message thread.
         required: true
       tags:
       - messages
@@ -626,7 +634,8 @@ paths:
       - in: path
         name: id
         schema:
-          type: string
+          type: integer
+        description: A unique integer value identifying this message thread.
         required: true
       tags:
       - messages
@@ -646,7 +655,8 @@ paths:
       - in: path
         name: id
         schema:
-          type: string
+          type: integer
+        description: A unique integer value identifying this message thread.
         required: true
       tags:
       - messages
@@ -666,7 +676,8 @@ paths:
       - in: path
         name: id
         schema:
-          type: string
+          type: integer
+        description: A unique integer value identifying this message thread.
         required: true
       tags:
       - messages
@@ -683,7 +694,8 @@ paths:
       - in: path
         name: id
         schema:
-          type: string
+          type: integer
+        description: A unique integer value identifying this message thread.
         required: true
       tags:
       - messages
@@ -703,7 +715,8 @@ paths:
       - in: path
         name: id
         schema:
-          type: string
+          type: integer
+        description: A unique integer value identifying this message thread.
         required: true
       tags:
       - messages
@@ -855,7 +868,8 @@ paths:
       - in: path
         name: id
         schema:
-          type: string
+          type: integer
+        description: A unique integer value identifying this notification.
         required: true
       tags:
       - notifications
@@ -876,7 +890,8 @@ paths:
       - in: path
         name: id
         schema:
-          type: string
+          type: integer
+        description: A unique integer value identifying this notification.
         required: true
       tags:
       - notifications
@@ -1050,7 +1065,8 @@ paths:
       - in: path
         name: id
         schema:
-          type: string
+          type: integer
+        description: A unique integer value identifying this payment.
         required: true
       tags:
       - payments
@@ -1132,7 +1148,8 @@ paths:
       - in: path
         name: id
         schema:
-          type: string
+          type: integer
+        description: A unique integer value identifying this payout.
         required: true
       tags:
       - payments
@@ -1501,7 +1518,7 @@ paths:
   /api/properties/{id}/photos/:
     post:
       operationId: properties_photos_create
-      description: Upload photos for a property
+      description: Upload photos for a property (multipart/form-data)
       parameters:
       - in: path
         name: id
@@ -1513,13 +1530,10 @@ paths:
       - properties
       requestBody:
         content:
-          application/json:
+          multipart/form-data:
             schema:
               $ref: '#/components/schemas/PropertyDetailRequest'
           application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/PropertyDetailRequest'
-          multipart/form-data:
             schema:
               $ref: '#/components/schemas/PropertyDetailRequest'
         required: true
@@ -1967,13 +1981,10 @@ paths:
       - properties
       requestBody:
         content:
-          application/json:
+          multipart/form-data:
             schema:
               $ref: '#/components/schemas/PropertyPhotoRequest'
           application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/PropertyPhotoRequest'
-          multipart/form-data:
             schema:
               $ref: '#/components/schemas/PropertyPhotoRequest'
         required: true
@@ -2030,13 +2041,10 @@ paths:
       - properties
       requestBody:
         content:
-          application/json:
+          multipart/form-data:
             schema:
               $ref: '#/components/schemas/PropertyPhotoRequest'
           application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/PropertyPhotoRequest'
-          multipart/form-data:
             schema:
               $ref: '#/components/schemas/PropertyPhotoRequest'
         required: true
@@ -2067,13 +2075,10 @@ paths:
       - properties
       requestBody:
         content:
-          application/json:
+          multipart/form-data:
             schema:
               $ref: '#/components/schemas/PatchedPropertyPhotoRequest'
           application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/PatchedPropertyPhotoRequest'
-          multipart/form-data:
             schema:
               $ref: '#/components/schemas/PatchedPropertyPhotoRequest'
       security:
@@ -2828,7 +2833,8 @@ paths:
       - in: path
         name: id
         schema:
-          type: string
+          type: integer
+        description: A unique integer value identifying this wishlist.
         required: true
       tags:
       - wishlists
@@ -2848,7 +2854,8 @@ paths:
       - in: path
         name: id
         schema:
-          type: string
+          type: integer
+        description: A unique integer value identifying this wishlist.
         required: true
       tags:
       - wishlists
@@ -2880,7 +2887,8 @@ paths:
       - in: path
         name: id
         schema:
-          type: string
+          type: integer
+        description: A unique integer value identifying this wishlist.
         required: true
       tags:
       - wishlists
@@ -2911,7 +2919,8 @@ paths:
       - in: path
         name: id
         schema:
-          type: string
+          type: integer
+        description: A unique integer value identifying this wishlist.
         required: true
       tags:
       - wishlists
@@ -2928,7 +2937,8 @@ paths:
       - in: path
         name: id
         schema:
-          type: string
+          type: integer
+        description: A unique integer value identifying this wishlist.
         required: true
       - in: path
         name: property_id
@@ -2965,7 +2975,8 @@ paths:
       - in: path
         name: id
         schema:
-          type: string
+          type: integer
+        description: A unique integer value identifying this wishlist.
         required: true
       - in: path
         name: property_id
@@ -4196,6 +4207,9 @@ components:
       type: object
       description: Serializer for creating/updating properties
       properties:
+        id:
+          type: integer
+          readOnly: true
         title:
           type: string
           maxLength: 200
@@ -4273,6 +4287,7 @@ components:
       - city
       - country
       - description
+      - id
       - latitude
       - longitude
       - max_guests

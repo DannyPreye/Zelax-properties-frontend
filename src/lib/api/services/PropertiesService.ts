@@ -227,15 +227,15 @@ export class PropertiesService {
         });
     }
     /**
-     * Upload photos for a property
+     * Upload photos for a property (multipart/form-data)
      * @param id A unique integer value identifying this property.
-     * @param requestBody
+     * @param formData
      * @returns PropertyDetail
      * @throws ApiError
      */
     public static propertiesPhotosCreate(
         id: number,
-        requestBody: PropertyDetailRequest,
+        formData: PropertyDetailRequest,
     ): CancelablePromise<PropertyDetail> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -243,8 +243,8 @@ export class PropertiesService {
             path: {
                 'id': id,
             },
-            body: requestBody,
-            mediaType: 'application/json',
+            formData: formData,
+            mediaType: 'multipart/form-data',
         });
     }
     /**
@@ -552,13 +552,13 @@ export class PropertiesService {
     /**
      * ViewSet for property photos
      * @param propertyPk
-     * @param requestBody
+     * @param formData
      * @returns PropertyPhoto
      * @throws ApiError
      */
     public static propertiesPhotosCreate2(
         propertyPk: number,
-        requestBody: PropertyPhotoRequest,
+        formData: PropertyPhotoRequest,
     ): CancelablePromise<PropertyPhoto> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -566,8 +566,8 @@ export class PropertiesService {
             path: {
                 'property_pk': propertyPk,
             },
-            body: requestBody,
-            mediaType: 'application/json',
+            formData: formData,
+            mediaType: 'multipart/form-data',
         });
     }
     /**
@@ -594,14 +594,14 @@ export class PropertiesService {
      * ViewSet for property photos
      * @param id
      * @param propertyPk
-     * @param requestBody
+     * @param formData
      * @returns PropertyPhoto
      * @throws ApiError
      */
     public static propertiesPhotosUpdate(
         id: number,
         propertyPk: number,
-        requestBody: PropertyPhotoRequest,
+        formData: PropertyPhotoRequest,
     ): CancelablePromise<PropertyPhoto> {
         return __request(OpenAPI, {
             method: 'PUT',
@@ -610,22 +610,22 @@ export class PropertiesService {
                 'id': id,
                 'property_pk': propertyPk,
             },
-            body: requestBody,
-            mediaType: 'application/json',
+            formData: formData,
+            mediaType: 'multipart/form-data',
         });
     }
     /**
      * ViewSet for property photos
      * @param id
      * @param propertyPk
-     * @param requestBody
+     * @param formData
      * @returns PropertyPhoto
      * @throws ApiError
      */
     public static propertiesPhotosPartialUpdate(
         id: number,
         propertyPk: number,
-        requestBody?: PatchedPropertyPhotoRequest,
+        formData?: PatchedPropertyPhotoRequest,
     ): CancelablePromise<PropertyPhoto> {
         return __request(OpenAPI, {
             method: 'PATCH',
@@ -634,8 +634,8 @@ export class PropertiesService {
                 'id': id,
                 'property_pk': propertyPk,
             },
-            body: requestBody,
-            mediaType: 'application/json',
+            formData: formData,
+            mediaType: 'multipart/form-data',
         });
     }
     /**

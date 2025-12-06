@@ -1,11 +1,22 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import type { LatLngExpression } from 'leaflet';
+import L from 'leaflet';
 import { createPropertyMarkerIcon, defaultMapCenter, defaultZoom, mapTileLayer, mapAttribution } from '@/lib/map-config';
 import type { PropertyList } from '@/lib/api/models/PropertyList';
 import 'leaflet/dist/leaflet.css';
+
+// Fix for default marker icons in Next.js
+if (typeof window !== 'undefined') {
+    delete (L.Icon.Default.prototype as any)._getIconUrl;
+    L.Icon.Default.mergeOptions({
+        iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon-2x.png',
+        iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon.png',
+        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
+    });
+}
 
 interface MapBoundsUpdaterProps {
   bounds: [number, number, number, number] | null;
@@ -71,7 +82,7 @@ export function PropertyMap({
             <Marker
               key={property.id}
               position={position}
-              icon={createPropertyMarkerIcon(isSelected ? '#00A699' : '#FF5A5F')}
+              icon={createPropertyMarkerIcon(L, isSelected ? '#00A699' : '#FF5A5F')}
               eventHandlers={{
                 click: () => {
                   onPropertyClick?.(property.id);

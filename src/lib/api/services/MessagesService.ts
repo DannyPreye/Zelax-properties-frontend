@@ -55,12 +55,12 @@ export class MessagesService {
     }
     /**
      * ViewSet for message thread operations
-     * @param id
+     * @param id A unique integer value identifying this message thread.
      * @returns MessageThread
      * @throws ApiError
      */
     public static messagesThreadsRetrieve(
-        id: string,
+        id: number,
     ): CancelablePromise<MessageThread> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -72,12 +72,12 @@ export class MessagesService {
     }
     /**
      * ViewSet for message thread operations
-     * @param id
+     * @param id A unique integer value identifying this message thread.
      * @returns MessageThread
      * @throws ApiError
      */
     public static messagesThreadsUpdate(
-        id: string,
+        id: number,
     ): CancelablePromise<MessageThread> {
         return __request(OpenAPI, {
             method: 'PUT',
@@ -89,12 +89,12 @@ export class MessagesService {
     }
     /**
      * ViewSet for message thread operations
-     * @param id
+     * @param id A unique integer value identifying this message thread.
      * @returns MessageThread
      * @throws ApiError
      */
     public static messagesThreadsPartialUpdate(
-        id: string,
+        id: number,
     ): CancelablePromise<MessageThread> {
         return __request(OpenAPI, {
             method: 'PATCH',
@@ -106,12 +106,12 @@ export class MessagesService {
     }
     /**
      * ViewSet for message thread operations
-     * @param id
+     * @param id A unique integer value identifying this message thread.
      * @returns void
      * @throws ApiError
      */
     public static messagesThreadsDestroy(
-        id: string,
+        id: number,
     ): CancelablePromise<void> {
         return __request(OpenAPI, {
             method: 'DELETE',
@@ -123,12 +123,12 @@ export class MessagesService {
     }
     /**
      * Get or create messages in a thread
-     * @param id
+     * @param id A unique integer value identifying this message thread.
      * @returns MessageThread
      * @throws ApiError
      */
     public static messagesThreadsMessagesRetrieve(
-        id: string,
+        id: number,
     ): CancelablePromise<MessageThread> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -140,12 +140,12 @@ export class MessagesService {
     }
     /**
      * Get or create messages in a thread
-     * @param id
+     * @param id A unique integer value identifying this message thread.
      * @returns MessageThread
      * @throws ApiError
      */
     public static messagesThreadsMessagesCreate(
-        id: string,
+        id: number,
     ): CancelablePromise<MessageThread> {
         return __request(OpenAPI, {
             method: 'POST',
